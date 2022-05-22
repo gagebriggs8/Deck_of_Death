@@ -1,23 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 
-export default function App() {
+import { Component, Stylesheet, useState, TouchableOpacity, Button, View, Text, Image, ScrollView, TextInput, Alert } from 'react-native';
+
+// main part of the app
+const App = () => {
+  
+
+  var array = [require("./cards/card.png"), require("./assets/icon.png")]
+  var x = 0
+  
+
+  //onclick function
+  const handlePress = () => {
+    //some logic
+    alert("help")
+    x+=1
+  }
+  
+  // what shows up on the app
   return (
-    <View style={styles.container}>
-      <Text>blah Open up App.js to start working on your app!</Text>
-      <Text>Here is some more text.</Text>
-      <p>what happens here</p>
-      
-      <StatusBar style="auto" />
-    </View>
+
+    <ScrollView>
+
+      <View>
+          <Text>{array[x]}</Text>
+          <Text>{x}</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          
+          <TouchableOpacity
+            onPress={(handlePress)}
+          >
+
+            <Image
+              style={{ 
+                width: 300,
+                height: 300,
+              }}
+              resizeMode="contain"
+              source={
+                array[x]
+              }
+            />
+
+          </TouchableOpacity>
+
+          </View>
+
+      </View>
+
+    </ScrollView>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
