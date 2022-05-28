@@ -1,20 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import { Component, Stylesheet, useState, TouchableOpacity, Button, View, Text, Image, ScrollView, TextInput, Alert } from 'react-native';
+import { Component, Stylesheet, TouchableOpacity, Button, View, Text, Image, ScrollView, TextInput, Alert } from 'react-native';
 
 // main part of the app
 const App = () => {
   
+  const [card, setCard] = useState(0); //initial state
 
-  var array = [require("./cards/card.png"), require("./assets/icon.png")]
-  var x = 0
+  var array = [
+    require("./cards/card.png"), 
+    require("./cards/card2.png"),
+    require("./assets/icon.png")
+  ]
   
 
   //onclick function
   const handlePress = () => {
     //some logic
-    alert("help")
-    x+=1
+    //set card state to the next index
+    setCard( current => current + 1);
+
+    //so everytime you click function the state will change and this re-render your component with the new data.
   }
   
   // what shows up on the app
@@ -23,8 +29,7 @@ const App = () => {
     <ScrollView>
 
       <View>
-          <Text>{array[x]}</Text>
-          <Text>{x}</Text>
+          
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           
           <TouchableOpacity
@@ -37,9 +42,7 @@ const App = () => {
                 height: 300,
               }}
               resizeMode="contain"
-              source={
-                array[x]
-              }
+              source={ array[card] }
             />
 
           </TouchableOpacity>
