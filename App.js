@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 
 import { Component, Stylesheet, TouchableOpacity, Button, View, Text, Image, ScrollView, TextInput, Alert } from 'react-native';
+
+import { useClock } from 'react-native-timer-hooks';
+
+
+
 var i = Math.floor(Math.random() * 60) + 1;
 var array = [
     require("./cards/card.png"), 
@@ -72,9 +77,9 @@ const App = () => {
   const [card, setCard] = useState(0); //initial state
 
   
-  
-  
+  const [counter, start, pause, reset, isRunning] = useClock(0, 1000, false);
 
+  
   const handlePress = () => {
     setCard( current => current = i);
     array.splice(i, 1)
@@ -82,23 +87,44 @@ const App = () => {
     i =  Math.floor(Math.random() * (x)) + 1
     
   }
+  
   var string
   if (array.length == 0) {
     string = 'finished'
   }
   else {string = array.length}
-  
+ 
+  var time
+  if (array.length == 0) {
+    time = 'New Record Set at ' + counter + ' Seconds'
+  }
+  else {time = 'Keep Going!!'}
   
   // what shows up on the app
   return (
 
     <ScrollView>
       
-      
-          
-          <View 
+      <View >
+
+        <Text>Seconds: {counter}</Text>
+
+        <Button
+          onPress={() => {
+            isRunning ? pause() : start();
+          }}
+          title={isRunning ? 'Pause' : 'Start'}
+          />
+
+        <Button onPress={() => reset()} title = {'reset'} />
+
+      </View>
+        
+      <Text>{time}</Text>
+
+      <View 
             style={{ position: 'absolute', 
-            top: 150, left: 0, 
+            top: 375, left: 0, 
             right: 0, bottom: 0, 
             justifyContent: 'center', 
             alignItems: 'center' }}
@@ -120,10 +146,6 @@ const App = () => {
             </TouchableOpacity>
 
           </View>
-
-      
-      <Text>{array}</Text>
-      <Text>{string}</Text>
     </ScrollView>
     
   );
