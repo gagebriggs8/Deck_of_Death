@@ -1,24 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import { Component, Stylesheet, TouchableOpacity, Button, View, Text, Image, ScrollView, TextInput, Alert } from 'react-native';
+import { TouchableOpacity, Button, View, Text, Image, ScrollView } from 'react-native';
 
 import { useClock } from 'react-native-timer-hooks';
 
+var i = Math.floor(Math.random() * 49) + 1;
 
+var x = 49
 
-var i = Math.floor(Math.random() * 60) + 1;
 var array = [
     require("./cards/card.png"), 
     require("./cards/card2.png"),
     require("./cards/card3.png"),
     require("./cards/card4.png"),
-    require("./cards/card5.png"),
-    require("./cards/card6.png"),
-    require("./cards/card7.png"),
-    require("./cards/card8.png"),
-    require("./cards/card9.png"),
-    require("./cards/card10.png"),
-    require("./cards/card11.png"),
     require("./cards/card12.png"),
     require("./cards/card13.png"),
     require("./cards/card14.png"),
@@ -63,38 +57,32 @@ var array = [
     require("./cards/card53.png"),
     require("./cards/card54.png"),
     require("./cards/card55.png"),
-    require("./cards/card56.png"),
-    require("./cards/card57.png"),
-    require("./cards/card58.png"),
-    require("./cards/card59.png"),
-    require("./cards/card61.png")
+    require("./cards/card56.png")
   ]
-var x = 60
 
 // main part of the app
 const App = () => {
   
   const [card, setCard] = useState(0); //initial state
 
-  
   const [counter, start, pause, reset, isRunning] = useClock(0, 1000, false);
 
-  
   const handlePress = () => {
     setCard( current => current = i);
     array.splice(i, 1)
     x = x - 1
     i =  Math.floor(Math.random() * (x)) + 1
-    
   }
   
   var string
+
   if (array.length == 0) {
     string = 'finished'
   }
   else {string = array.length}
  
   var time
+  
   if (array.length == 0) {
     time = 'New Record Set at ' + counter + ' Seconds'
   }
@@ -130,22 +118,21 @@ const App = () => {
             alignItems: 'center' }}
           >
           
-            <TouchableOpacity
-              onPress={(handlePress)}
-            >
-            
-              <Image
-                style={{ 
-                  width: 400,
-                  height: 500,
-                }}
-                resizeMode="contain"
-                source={ array[card] }
-              />
+        <TouchableOpacity onPress={(handlePress)}>
+        
+          <Image
+            style={{ 
+              width: 400,
+              height: 500,
+            }}
+            resizeMode="contain"
+            source={ array[card] }
+          />
 
-            </TouchableOpacity>
+        </TouchableOpacity>
 
-          </View>
+      </View>
+
     </ScrollView>
     
   );
